@@ -33,30 +33,21 @@ function toko($usr, $tk)
         }
     }
 };
-function mbr($usr, $tk, $mbr)
-{
-    foreach ($usr as $u) {
-        if ($mbr == $u['id_member']) {
-            return $u['nama_member'];
-        }
-    }
-    foreach ($tk as $t) {
-        if ($mbr == $t['id_toko']) {
-            return $t['nama_toko'];
-        }
-    }
-};
+
+
 ?>
 
+
+
 <div class="card">
-    <div class="card-header">
+    <div class="card-header bgdt">
         <h3 class="card-title">
-            <i class="fas fa-store"></i>
-            Data Penjualan Grosir
+            <i class="fas fa-store ct"> Data Penjualan Grosir</i>
+
         </h3>
 
     </div><!-- /.card-header -->
-    <div class="card-body">
+    <div class="card-body ">
         <div class="tab-content p-0">
             <!-- Morris chart - Sales -->
             <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: auto;">
@@ -64,44 +55,41 @@ function mbr($usr, $tk, $mbr)
                     <!-- /.card-header -->
                     <div class="card-body">
 
-                        <table id="example1" class="table table-bordered table-striped" style="width: 100%;">
+                        <table id="example1" class="table table-bordered table-striped" style="width: 100%; ">
                             <thead>
                                 <tr>
+                                    <th>no</th>
+                                    <th>Waktu</th>
                                     <th>ID Penjualan</th>
                                     <th>Produk</th>
+                                    <th>Harga</th>
                                     <th>Banyak</th>
+                                    <th>Paket</th>
                                     <th>Diskon</th>
-                                    <th>Harga Jual</th>
-                                    <th>Keterangan</th>
-                                    <th>Waktu</th>
+                                    <th>Total</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($penjualan as $t) : ?>
+                                <?php $i = 0;
+                                foreach ($penjualan as $t) : $i++; ?>
                                     <tr>
+                                        <td><?= $i ?></td>
+                                        <td><?= $t['created_at']; ?></td>
                                         <td><?= $t['id_penjualan']; ?></td>
                                         <td><?= produk($produk, $t['produk_id']); ?></td>
+                                        <td><?= $t['harga_awal']; ?></td>
                                         <td><?= $t['banyak']; ?></td>
+                                        <td><?= $t['keterangan']; ?></td>
                                         <td><?= $t['diskon']; ?></td>
                                         <td><?= $t['harga_jadi']; ?></td>
-                                        <td><?= $t['keterangan']; ?></td>
-                                        <td><?= $t['created_at']; ?></td>
                                         <td>
                                             <div class="d-flex">
-                                                <button type="button" title="Detail Penjualan" class="btn btn-warning mx-2 detail-btn" data-toggle="modal" data-target="#detail" data-id_penjualan="<?= $t['id_penjualan']; ?>" data-Produk="<?= produk($produk, $t['produk_id']); ?>" data-id_penjualan="<?= $t['id_penjualan']; ?>" data-paket_id="<?= $t['paket_id']; ?>" data-banyak="<?= $t['banyak']; ?>" data-harga_produk="<?= $t['harga_produk']; ?>" data-harga_awal="<?= $t['harga_awal']; ?>" data-diskon="<?= $t['diskon']; ?>" data-harga_jadi="<?= $t['harga_jadi']; ?>" data-kasir_id="<?= kasir($userku, $t['kasir_id']); ?>" data-toko_id="<?= toko($tokoku, $t['toko_id']); ?>" data-pembeli_id="<?= mbr($member, $tokoku, $t['pembeli_id']); ?>" data-keterangan="<?= $t['keterangan']; ?>" data-waktu="<?= $t['created_at']; ?>">
-                                                    <i class="fas fa-eye"></i>
+                                                <button type="button" title="Detail Penjualan" class="btn btn-warning mx-2 detail-btn bt" data-toggle="modal" data-target="#detail" data-id_penjualan="<?= $t['id_penjualan']; ?>" data-dlr="<?= $t['harga_dlr'] ?>" data-Produk="<?= produk($produk, $t['produk_id']); ?>" data-id_penjualan="<?= $t['id_penjualan']; ?>" data-banyak="<?= $t['banyak']; ?>" data-harga_produk="<?= $t['harga_produk']; ?>" data-harga_awal="<?= $t['harga_awal']; ?>" data-diskon="<?= $t['diskon']; ?>" data-harga_jadi="<?= $t['harga_jadi']; ?>" data-kasir_id="<?= kasir($userku, $t['kasir_id']); ?>" data-toko_id="<?= toko($tokoku, $t['toko_id']); ?>" data-pembeli_id="<?= $t['nama_pembeli']; ?>" data-keterangan="<?= $t['keterangan']; ?>" data-waktu="<?= $t['created_at']; ?>">
+                                                    <i class="fas fa-eye ct"></i>
                                                 </button>
-                                                <button style="margin: 2px;" class="btn btn-primary ubah-btn" data-toggle="modal" data-target="#ubah_penjualan" data-jual="<?= $t['id_jual']; ?>" data-produk_id="<?= $t['produk_id'] ?>" data-id_penjualan="<?= $t['id_penjualan']; ?>" data-paket_id="<?= $t['paket_id']; ?>" data-banyak="<?= $t['banyak']; ?>" data-harga_produk="<?= $t['harga_produk']; ?>" data-harga_awal="<?= $t['harga_awal']; ?>" data-diskon="<?= $t['diskon']; ?>" data-harga_jadi="<?= $t['harga_jadi']; ?>" data-kasir_id="<?= kasir($userku, $t['kasir_id']); ?>" data-toko_id="<?= $t['toko_id']; ?>" data-keterangan="<?= $t['keterangan']; ?>" data-waktu="<?= $t['created_at']; ?>"><i class="	fas fa-pencil-alt"></i></button>
-
-                                                <form action="<?= base_url('batalkan_penjualan/' . $t['id_jual'] . '/' . $t['produk_id'] . '/' . $t['banyak'] . '/' . $t['toko_id']); ?>" method="post"><?= csrf_field() ?>
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <button title="Batalkan Penjualan" class="btn btn-danger ml-2" type="submit" onclick="return confirm('Yakin ingin membatalkan Penjualan ini? , produk akan dikembalikan') "><i class="fas fa-undo-alt"></i></button>
-                                                </form>
-                                                <form action="<?= base_url('hapus_penjualan/' . $t['id_jual']); ?>" method="post"><?= csrf_field() ?>
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <button title="Hapus Data" class="btn btn-danger ml-2" type="submit" onclick="return confirm('Yakin ingin menghapus data ini? , produk tidak dikembalikan lagi')"><i class="fas fa-trash"></i></button>
-                                                </form>
+                                                <button style="margin: 2px;" class="btn btn-primary ubah-btn bt" data-toggle="modal" data-target="#ubah_penjualan" data-jual="<?= $t['id_jual']; ?>" data-produk_id="<?= $t['produk_id'] ?>" data-banyak="<?= $t['banyak']; ?>" data-harga_produk="<?= $t['harga_produk']; ?>" data-harga_awal="<?= $t['harga_awal']; ?>" data-diskon="<?= $t['diskon']; ?>" data-harga_jadi="<?= $t['harga_jadi']; ?>" data-keterangan="<?= $t['keterangan']; ?>" data-dlr="<?= $t['harga_dlr'] ?>" data-toko="<?= $t['toko_id'] ?>" data-id_penjualan="<?= $t['id_penjualan'] ?>">
+                                                    <i class="	fas fa-pencil-alt ct"></i></button>
                                             </div>
                                         </td>
 
@@ -117,21 +105,22 @@ function mbr($usr, $tk, $mbr)
         </div>
     </div>
 
-    <div class="card mx-4">
+    <div class="card mx-4 bgdt">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-2 form-group">
-                    <label for="minDate">Minimum Date:</label>
+                    <label for="minDate" class="ct">Minimum Date:</label>
                     <input type="date" class="form-control" id="minDate">
                 </div>
                 <div class="col-md-2 form-group">
-                    <label for="maxDate">Maximum Date:</label>
+                    <label for="maxDate" class="ct">Maximum Date:</label>
                     <input type="date" class="form-control" id="maxDate">
                 </div>
-                <div class="col-md-2 form-group">
-                    <hr>
-                    <button type="button" onclick="datecek()" class="btn btn-secondary ml-2" data-toggle="modal" data-target="#stokmin">
-                        Laporan / Waktu
+                <div class="col-md-2 ">
+                    <label class="ct">Laporan / Waktu:</label>
+
+                    <button type="button" onclick="datecek()" class="btn btn-secondary bt" data-toggle="modal" data-target="#s_data" title="Laporan / Waktu">
+                        <i class="fas fa-search ct"> </i>
                     </button>
                 </div>
             </div>
@@ -160,20 +149,22 @@ function mbr($usr, $tk, $mbr)
                         <?php
                         $columns = [
                             'ID Penjualan' => 'id_penjualan',
-                            'Produk ID' => 'produk',
-                            'Paket ID' => 'paket_id',
-                            'Banyak' => 'banyak',
-                            'Harga Produk' => 'harga_produk',
+                            'dollar saat pembelian' => 'dlr',
+
+                            'Produk ' => 'produk',
                             'Harga Awal' => 'harga_awal',
+                            'Harga Produk' => 'harga_produk',
+                            'Banyak' => 'banyak',
                             'Diskon' => 'diskon',
                             'Harga Jadi' => 'harga_jadi',
-                            'Kasir ID' => 'kasir_id',
-                            'Toko ID' => 'toko_id',
-                            'Pembeli ID' => 'pembeli_id',
+
+
+                            'Kasir ' => 'kasir_id',
+                            'Toko' => 'toko_id',
+                            'Pembeli' => 'pembeli_id',
                             'Keterangan' => 'keterangan',
                             'Waktu' => 'waktu'
                         ];
-
                         foreach ($columns as $label => $id) {
                             echo '<tr>';
                             echo '<td><b>' . $label . '</b></td>';
@@ -204,42 +195,38 @@ function mbr($usr, $tk, $mbr)
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('/ubah_penjualan'); ?>" method="post"><?= csrf_field() ?>
+                <form action="<?= base_url('/ubah_penjualan_grosir'); ?>" autocomplete="off" method="post"><?= csrf_field() ?>
                     <div class="row">
                         <div class="col-md-6">
                             <!-- <div class="mb-3"> -->
-                            <!-- <label for="id_penjualan2" class="form-label">ID Penjualan</label> -->
-                            <input type="text" class="form-control" id="id_penjualan2" name="id_penjualan" hidden>
-                            <input type="text" class="form-control" id="toko_id2" name="toko_id" hidden>
-                            <input type="text" class="form-control" id="produk_awal2" name="produk_id_awal" hidden>
-                            <input type="text" class="form-control" id="banyak_awal2" name="banyak_produk_awal" hidden>
-                            <input type="text" class="form-control" id="jual2" name="jual" hidden>
+
                             <!-- </div> -->
                             <div class="mb-3">
                                 <label for="produk2" class="form-label">Produk ID</label>
-                                <select class="form-select" id="produk2" name="produk" required>
+                                <input list="produk2" class="form-control" name="id_produk" id="produkInput" oninput="pid_ubah()" required>
+                                <datalist id="produk2">
                                     <?php foreach ($produk as $p) : ?>
-                                        <option value="<?= $p->produk_id ?>"><?= $p->nama_produk ?></option>
+                                        <option value="<?= $p->produk_id ?>" data-id="<?= $p->produk_id ?>"><?= $p->nama_produk ?> ( <?= $p->stok_toko ?> ) </option>
                                     <?php endforeach; ?>
-                                </select>
-
+                                </datalist>
                             </div>
+                            <input type="text" class="form-control" id="jual2" name="jual" hidden required>
+                            <input type="text" class="form-control" id="pid_awal2" name="produk_id_awal" hidden required>
+                            <input type="text" class="form-control" id="byk_awal2" name="banyak_awal" hidden required>
+                            <input type="text" class="form-control" id="toko_id2" name="toko_id" hidden required>
+                            <input type="text" class="form-control" id="penjualan_id2" name="id_penjualan" hidden required>
+
                             <div class="mb-3">
-                                <label for="paket_id2" class="form-label">Paket ID</label>
-                                <select required class="form-select" id="paket_id2" name="paket">
-                                    <option value="0">bukan paket</option>
-                                    <?php foreach ($paket as $pkt) : ?>
-                                        <option value="<?= $pkt['id_paket'] ?>"><?= $pkt['nama_paket'] ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <label for="dlr" class="form-label">dolar saat pembelian</label>
+                                <input type="text" class="form-control" oninput="dolar_ubah()" id="dlr2" name="dlr" required>
                             </div>
                             <div class="mb-3">
                                 <label for="banyak2" class="form-label">Banyak</label>
-                                <input type="text" class="form-control" id="banyak2" name="banyak" required>
+                                <input type="text" oninput="banyak_cek(this)" class="form-control" id="banyak2" name="banyak" required>
                             </div>
                             <div class="mb-3">
                                 <label for="diskon2" class="form-label">Diskon</label>
-                                <input type="text" class="form-control" id="diskon2" name="diskon" required>
+                                <input type="text" class="form-control" oninput="diskon_produk(this)" id="diskon2" name="diskon" value="0" required>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -250,9 +237,10 @@ function mbr($usr, $tk, $mbr)
                             <div class="mb-3">
                                 <label for="harga_produk2" class="form-label">Harga Produk</label>
                                 <input type="text" class="form-control" id="harga_produk2" name="harga_produk" required>
+                                <input type="text" class="form-control" id="hcek" name="h_cek" hidden required>
                             </div>
                             <div class="mb-3">
-                                <label for="harga_jadi2" class="form-label">Harga Jadi</label>
+                                <label for="harga_jadi2" class="form-label">Harga Total</label>
                                 <input type="text" class="form-control" id="harga_jadi2" name="harga_jadi" required>
                             </div>
 
@@ -275,7 +263,7 @@ function mbr($usr, $tk, $mbr)
 </div>
 
 
-<div class="modal fade" id="stokmin" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="s_data" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div id="ctksm">
@@ -300,7 +288,7 @@ function mbr($usr, $tk, $mbr)
                                 <tr>
                                     <th>ID Penjualan</th>
                                     <th>Nama Produk</th>
-                                    <th>Paket ID</th>
+                                    <th>Harga Produk</th>
                                     <th>Banyak</th>
                                     <th>Harga</th>
                                     <th>Kasir</th>
@@ -316,10 +304,8 @@ function mbr($usr, $tk, $mbr)
                     </div>
                     <div style="float: right;">
                         <p>total pendapatan : <b id="dttl"></b></p>
-                        <!-- <p> Point Kasir :<br> <b id='point'></b> -->
                     </div>
                     <p> Total Penjualan : <b id='totpen'></b>
-                        <!-- <p> Point Pembeli :<br> <b id='point2'></b> -->
                 </div>
             </div>
             <div class="modal-footer">
@@ -331,9 +317,143 @@ function mbr($usr, $tk, $mbr)
 
 
 
-
+<script src="<?= base_url('') ?>rp.js"></script><!-- terbilang dan titik   -->
 
 <script src="<?= base_url('') ?>jq.js"></script>
+<script>
+    $(document).ready(function() {
+        $(document).on('touchstart click', '.ubah-btn', function() {
+            var idJual = $(this).data('jual');
+            var produk_id = $(this).data('produk_id');
+            var banyak = $(this).data('banyak');
+            var dollar = $(this).data('dlr');
+            var diskon = $(this).data('diskon');
+            var hargaAwal = $(this).data('harga_awal');
+            var hargaProduk = $(this).data('harga_produk');
+            var hargaJadi = $(this).data('harga_jadi');
+            var keterangan = $(this).data('keterangan');
+            var id_penjualan = $(this).data('id_penjualan');
+            var toko_id = $(this).data('toko');
+            // console.log(toko_id, id_penjualan);
+
+            $('#jual2').val(idJual);
+            $('#produkInput').attr('placeholder', produk_id);
+            $('#pid_awal2').val(produk_id);
+            $('#banyak2').attr('placeholder', banyak);
+            $('#byk_awal2').val(banyak);
+            $('#dlr2').val(dollar);
+            $('#diskon2').attr('placeholder', diskon);
+            $('#harga_awal2').attr('placeholder', hargaAwal);
+            $('#harga_produk2').attr('placeholder', hargaProduk);
+            $('#harga_jadi2').attr('placeholder', hargaJadi);
+            $('#keterangan2').attr('placeholder', keterangan);
+            $('#penjualan_id2').val(id_penjualan);
+            $('#toko_id2').val(toko_id);
+
+
+        });
+
+    });
+
+    function dolar_ubah() {
+        var byk = document.getElementById('banyak2').value = '';
+    }
+
+    function pid_ubah() {
+        var byk = document.getElementById('banyak2').value = '';
+    }
+</script>
+<script>
+    // console.log(dataPkt);
+
+    function banyak_cek(input) {
+
+        var dataPkt = <?php echo json_encode($paket); ?>;
+        var dlr = document.getElementById('dlr2').value;
+
+
+        banyak_produk = parseFloat(input.value);
+        produkInput = document.getElementById('produkInput').value;
+        harwal = document.getElementById('harga_awal2');
+        harjad = document.getElementById('harga_jadi2');
+        harprod = document.getElementById('harga_produk2');
+        keterangan = document.getElementById('keterangan2');
+        paket = document.getElementById('paket_id2');
+        disc = document.getElementById('diskon2');
+        hcek = document.getElementById('hcek');
+
+        var pkt = dataPkt.find(function(item) {
+            if (produkInput == item.produk_id) {
+                if (banyak_produk < parseFloat(item.jenis_paket)) {
+                    return true;
+                }
+            }
+        });
+
+
+
+        var lastItem = dataPkt.reverse().find(function(item) {
+            if (produkInput == item.produk_id) {
+                return true;
+            };
+        });
+
+
+        if (pkt) {
+            harwal.value = pkt.harga + ' ' + pkt.jenis_harga;
+            keterangan.value = pkt.nama_paket;
+            harprod.value = pkt.harga;
+            // console.log(1);
+
+            if (pkt.jenis_harga == "USD") {
+                harwal.value = pkt.harga + ' ' + pkt.jenis_harga;
+                keterangan.value = pkt.nama_paket;
+                harprod.value = pkt.harga * dlr;
+                // console.log(2);
+            }
+
+        } else {
+            harwal.value = lastItem.harga + ' ' + lastItem.jenis_harga;
+            keterangan.value = lastItem.nama_paket;
+            harprod.value = lastItem.harga;
+            // console.log(3);
+
+
+            if (lastItem.jenis_harga == "USD") {
+                harwal.value = lastItem.harga + ' ' + lastItem.jenis_harga;
+                keterangan.value = lastItem.nama_paket;
+                harprod.value = lastItem.harga * dlr;
+                // console.log(4);
+
+            }
+
+        }
+        harjad.value = banyak_produk * harprod.value;
+        hcek.value = banyak_produk * harprod.value;
+
+        diskon_produk(disc);
+
+
+
+    }
+
+    function diskon_produk(diskon_persen) {
+        var d = parseFloat(diskon_persen.value);
+        harprod = document.getElementById('harga_produk2').value;
+        harjad = document.getElementById('harga_jadi2');
+        hcek = document.getElementById('hcek').value;
+        h = parseFloat(hcek);
+
+        var diskon = h * (d / 100);
+
+        // Hitung harga setelah diskon
+        var hargaSetelahDiskon = h - diskon;
+        // console.log(d, harprod, hcek);
+
+        harjad.value = hargaSetelahDiskon;
+
+    }
+</script>
 
 <script>
     $(document).ready(function() {
@@ -351,6 +471,7 @@ function mbr($usr, $tk, $mbr)
             var keterangan = $(this).data('keterangan');
             var waktu = $(this).data('waktu');
             var pembeliId = $(this).data('pembeli_id');
+            var dollar = $(this).data('dlr');
 
             $('#id_penjualan').text(idPenjualan);
             $('#produk').text(produk);
@@ -365,101 +486,10 @@ function mbr($usr, $tk, $mbr)
             $('#pembeli_id').text(pembeliId);
             $('#keterangan').text(keterangan);
             $('#waktu').text(waktu);
+            $('#dlr').text(dollar);
 
 
         });
-
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        $(document).on('touchstart click', '.ubah-btn', function() {
-            var Jual = $(this).data('jual');
-            var idPenjualan = $(this).data('id_penjualan');
-            var produkID = $(this).data('produk_id');
-            var paketId = $(this).data('paket_id');
-            var banyak = $(this).data('banyak');
-            var hargaProduk = $(this).data('harga_produk');
-            var hargaAwal = $(this).data('harga_awal');
-            var diskon = $(this).data('diskon');
-            var hargaJadi = $(this).data('harga_jadi');
-            var kasirId = $(this).data('kasir_id');
-            var tokoId = $(this).data('toko_id');
-            var keterangan = $(this).data('keterangan');
-            var waktu = $(this).data('waktu');
-
-            $('#jual2').val(Jual);
-            $('#id_penjualan2').val(idPenjualan);
-            $('#produk_awal2').val(produkID);
-            $('#produk2').val(produkID);
-            $('#paket_id2').val(paketId);
-            $('#banyak2').val(banyak);
-            $('#banyak_awal2').val(banyak);
-            $('#harga_produk2').val(hargaProduk);
-            $('#harga_awal2').val(hargaAwal);
-            $('#diskon2').val(diskon);
-            $('#harga_jadi2').val(hargaJadi);
-            $('#kasir_id2').val(kasirId);
-            $('#toko_id2').val(tokoId);
-            $('#keterangan2').val(keterangan);
-            $('#waktu2').val(waktu);
-
-
-
-        });
-    });
-
-    $("#produk2").change(function() {
-        $('#banyak2').val('');
-        $('#diskon2').val('');
-        $('#paket_id2').val('');
-
-    });
-
-    $("#paket_id2").change(function() {
-        var selectedValue = $(this).val();
-        // console.log(selectedValue);
-
-        var dataPkt = <?php echo json_encode($paket); ?>;
-
-        pkt = dataPkt.find(function(item) {
-            if (item.id_paket == selectedValue) {
-                $('#keterangan2').val(item.tipe_paket + ' ( ' + item.jenis_paket + ' )');
-                $('#banyak2').val(item.banyak_ml);
-                $('#harga_awal2').val(item.harga_paket);
-                $('#harga_produk2').val(item.harga_paket);
-                $('#diskon2').val('');
-
-
-            } else if (selectedValue == 0) {
-                $('#banyak2').val('');
-                $('#diskon2').val('');
-            }
-        });
-    });
-
-    $("#banyak2").keyup(function() {
-        var dataPrd = <?php echo json_encode($produk); ?>;
-        pkt = dataPrd.find(function(item) {
-            if (item.id_produk == $('#produk2').val()) {
-                // console.log(item.harga_jual_produk);
-                $('#harga_produk2').val(item.harga_jual_produk);
-                var hrg = parseFloat($('#harga_produk2').val()) * parseFloat($('#banyak2').val());
-                // console.log(hrg);
-                $('#harga_awal2').val(hrg);
-                $('#keterangan2').val('Bukan Paket');
-                $('#diskon2').val('');
-            }
-        });
-    });
-
-    $("#diskon2").keyup(function() {
-        // Diskon = Total Harga * (Persentase Diskon / 100)
-        var hrgj = parseFloat($('#harga_awal2').val()) / 100 * parseFloat($('#diskon2').val());
-        var hrgd = parseFloat($('#harga_awal2').val()) - hrgj;
-        // console.log(hrgd);
-        $('#harga_jadi2').val(hrgd);
 
     });
 </script>
@@ -474,47 +504,7 @@ function mbr($usr, $tk, $mbr)
     var tokoData = <?php echo json_encode($tokoku); ?>;
     var memberData = <?php echo json_encode($member); ?>;
 
-    function getKasirName(id) {
-        for (var i = 0; i < userData.length; i++) {
-            if (id == userData[i]['id']) {
-                return userData[i]['username'];
-            }
-        }
-        return '';
-    }
 
-    function getProdukName(id) {
-        for (var i = 0; i < produkData.length; i++) {
-            if (id == produkData[i]['id_produk']) {
-                return produkData[i]['nama_produk'];
-            }
-        }
-        return '';
-    }
-
-    function getTokoName(id) {
-        for (var i = 0; i < tokoData.length; i++) {
-            if (id == tokoData[i]['id_toko']) {
-                return tokoData[i]['nama_toko'];
-            }
-        }
-        return '';
-    }
-
-    function getMemberName(id) {
-        for (var i = 0; i < memberData.length; i++) {
-            if (id == memberData[i]['id_member']) {
-                return memberData[i]['nama_member'];
-            }
-        }
-        for (var i = 0; i < tokoData.length; i++) {
-            if (id == tokoData[i]['id_toko']) {
-                return tokoData[i]['nama_toko'];
-            }
-        }
-        return '';
-
-    }
 
 
     function datecek() {
@@ -549,16 +539,6 @@ function mbr($usr, $tk, $mbr)
             return pembayaranDate >= minDate && pembayaranDate <= maxDate;
         });
 
-        // cek pkt
-        pkthrg = paket.filter(function(item) {
-            return item.tipe_paket == "Premium";
-        });
-
-        // cek pkt
-        pkthrg2 = paket.filter(function(item) {
-            return item.tipe_paket == "Premium" || item.tipe_paket == "Deluxe";
-        });
-
         var tabel = document.getElementById("ctksm").getElementsByTagName('tbody')[0];
         tabel.innerHTML = '';
 
@@ -584,80 +564,31 @@ function mbr($usr, $tk, $mbr)
 
             cell1.innerHTML = '<tr><td>' + item.id_penjualan + '</td>';
             cell2.innerHTML = '<td>' + getProdukName(item.produk_id) + '</td>';
-            cell3.innerHTML = '<td>' + item.paket_id + '</td>';
+            cell3.innerHTML = '<td>' + item.harga_awal + '</td>';
             cell4.innerHTML = '<td>' + item.banyak + '</td>';
-            cell5.innerHTML = '<td>' + item.harga_jadi + '</td>';
+            cell5.innerHTML = '<td>' + titik(item.harga_jadi) + '</td>';
             cell6.innerHTML = '<td>' + getKasirName(item.kasir_id) + '</td>';
-            cell7.innerHTML = '<td>' + getMemberName(item.pembeli_id) + '</td>';
+            cell7.innerHTML = '<td>' + item.nama_pembeli + '</td>';
             cell8.innerHTML = '<td>' + item.keterangan + '</td>';
             cell9.innerHTML = '<td>' + item.created_at + '</td></tr>';
 
 
             var namaKasir = getKasirName(item.kasir_id);
-            var namaPembeli = getMemberName(item.pembeli_id);
+            var namaPembeli = item.nama_pembeli;
 
 
-            pkthrg.forEach(function(x) {
-                // console.log("item.paket_id);
-                // console.log(" x.id_paket);
-                if (item.paket_id == x.id_paket) {
-                    // console.log( x.id_paket);
-                    // ksr_pkt.push(x.jenis_paket);
-                    var tampung = getKasirName(item.kasir_id);
-
-                    if (ksr_pkt.hasOwnProperty(tampung)) {
-                        ksr_pkt[tampung.toString()].push(x.jenis_paket);
-                    } else {
-                        ksr_pkt[tampung.toString()] = [x.jenis_paket];
-                    }
-
-                }
-            });
-
-            // pembeli
-            pkthrg2.forEach(function(x2) {
-                if (item.paket_id == x2.id_paket) {
-                    var tampung2 = getMemberName(item.pembeli_id) + ' ' + x2.tipe_paket;
-
-                    if (mbr_pkt.hasOwnProperty(tampung2)) {
-                        mbr_pkt[tampung2.toString()].push(x2.jenis_paket);
-                    } else {
-                        mbr_pkt[tampung2.toString()] = [x2.jenis_paket];
-                    }
-                }
-            });
-
-            tp += 1;
 
             totalHarga += parseInt(item.harga_jadi);
             ntk = getTokoName(item.toko_id);
-
+            tp++;
         });
 
 
-        document.getElementById('totpen').textContent = tp;
-
-
-
-        var jsonString = '';
-        for (var key in mbr_pkt) {
-            if ((key !== ' Premium') && (key !== ' Deluxe')) {
-                jsonString += '"' + key + '":' + JSON.stringify(mbr_pkt[key]) + ',';
-            }
-        }
-
-        jsonString = '{' + jsonString.slice(0, -1) + '}';
 
         // console.log("Total Banyak:", );
         document.getElementById('namtok').textContent = ntk;
-        document.getElementById('dttl').textContent = 'Rp. ' + totalHarga;
-        // document.getElementById('point').innerHTML = JSON.stringify(ksr_pkt).replace(/["{}]/g, "").replace(/]/g, "]<br>");
-
-
-        // console.log(jsonString);
-
-        // document.getElementById('point2').innerHTML = jsonString.replace(/["{}]/g, "").replace(/]/g, "]<br>");
-        // document.getElementById('point').innerHTML = JSON.stringify(ksr_pkt).replace(/["{}]/g, "").replace(/]/g, "]<br>");
+        document.getElementById('dttl').textContent = 'Rp. ' + titik(totalHarga);
+        document.getElementById('totpen').textContent = tp;
 
     };
 </script>

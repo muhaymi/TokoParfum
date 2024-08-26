@@ -82,13 +82,12 @@ class Set extends BaseController
 
     // member
 
-    public function member()
+    public function member_grosir()
     {
-        $d_pktModel = new M_paket();
-        $data['paket']  = $d_pktModel->findAll();
+        $d_mbrModel = new M_member();
+        $data['mbr']  = $d_mbrModel->where('tipe_member', 'grosir')->findAll();
 
-
-        return view('set/paket_harga', $data);
+        return view('set/member_grosir', $data);
     }
 
     public function tambah_member()
@@ -102,6 +101,7 @@ class Set extends BaseController
             'alamat_member' => $this->request->getPost('alamat_member'),
             'no_hp' => $this->request->getPost('no_hp'),
             'toko_id' => user()->toko,
+            'tipe_member' => $this->request->getPost('tipe_member'),
         ];
         // dd(user()->toko);
 
@@ -115,20 +115,23 @@ class Set extends BaseController
 
     public function edit_member()
     {
-        // dd($_POST);
-        $d_pktModel = new M_member();
 
-        $data = [
-            'id_member' => $this->request->getPost('id_member'),
-            'nama_paket' => $this->request->getPost('nama_paket'),
-            'tipe_paket' => $this->request->getPost('tipe_paket'),
-            'jenis_paket' => $this->request->getPost('jenis_paket'),
-            'harga_paket' => $this->request->getPost('harga_paket'),
-            'banyak_ml' => $this->request->getPost('banyak_ml'),
-        ];
-        // dd($newName);
+        $id_member = $this->request->getPost('id_member');
+        $nama_member = $this->request->getPost('nama_member');
+        $alamat_member = $this->request->getPost('alamat_member');
+        $no_hp = $this->request->getPost('no_hp');
+        $poin = $this->request->getPost('poin');
 
-        $d_pktModel->update($this->request->getPost('id_paket'), $data);
+        $db = \Config\Database::connect();
+
+        $query = "UPDATE member SET 
+            nama_member = ?, 
+            alamat_member = ?, 
+            no_hp = ? ,
+            poin_member = ? 
+          WHERE id_member = ?";
+        $db->query($query, [$nama_member, $alamat_member, $no_hp, $poin, $id_member]);
+
 
         $successMessage = 'Data berhasil diubah!';
         session()->setFlashdata('success', $successMessage);
@@ -139,9 +142,9 @@ class Set extends BaseController
     public function hapus_member($id)
     {
         // dd($_POST);
-        $d_pktModel = new M_paket();
+        $d_mbrModel = new M_member();
 
-        $d_pktModel->delete($id);
+        $d_mbrModel->delete($id);
 
         $successMessage = 'Data berhasil dihapus!';
         session()->setFlashdata('success', $successMessage);

@@ -14,6 +14,7 @@ class M_penjualan_grosir extends Model
     protected $updatedField  = 'updated_at';
 
     protected $allowedFields = [
-        'id_penjualan', 'produk_id', 'paket_id', 'banyak', 'harga_produk', 'harga_awal', 'diskon', 'harga_jadi', 'kasir_id', 'toko_id', 'keterangan', 'pembeli_id'
+        'id_penjualan', 'produk_id', 'banyak', 'nama_pembeli', 'harga_produk', 'harga_dlr', 'h_cek', 
+        'harga_awal', 'diskon', 'harga_jadi', 'kasir_id', 'toko_id', 'keterangan', 'pembeli_id'
     ];
 }

@@ -44,26 +44,26 @@ function barcode($b, $bcd)
 
 
 <div class="card">
-    <div class="card-header">
+    <div class="card-header bgdt">
         <h3 class="card-title">
-            <i class="fas fa-address-card"></i>
-            Data Produk
+            <i class="fas fa-address-card ct"> Data Produk</i>
+
         </h3>
         <div class="card-tools">
             <ul class="nav nav-pills ml-auto">
 
                 <li class="nav-item mx-2">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" title="tambah produk">
+                    <button type="button" class="btn btn-primary bt" data-toggle="modal" data-target="#exampleModal" title="tambah produk">
                         <i class="fas fa-plus-square"></i>
                     </button>
                 </li>
                 <li class="nav-item mx-2">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-xl" title="barcode produk">
+                    <button type="button" class="btn btn-primary bt" data-toggle="modal" data-target="#modal-xl" title="barcode produk">
                         <i class="fas fa-barcode"> </i>
                     </button>
                 </li>
                 <li class="nav-item mx-2">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#stokmin" title="stok hampir habis">
+                    <button type="button" class="btn btn-primary bt" data-toggle="modal" data-target="#stokmin" title="stok hampir habis">
                         <i class="fas fa-search-minus"></i>
                     </button>
                 </li>
@@ -117,11 +117,11 @@ function barcode($b, $bcd)
 
                             <td>
                                 <div class="d-flex">
-                                    <button style="margin: 2px;" class="btn btn-primary edit-btn" data-toggle="modal" data-target="#editModal" data-id-produk="<?= $pr->id_produk ?>" data-nama-produk="<?= $pr->nama_produk ?>" data-kategori-produk="<?= $pr->kategori_produk ?>" data-banyak-produk="<?= $pr->stok_toko ?>" data-satuan-produk="<?= $pr->satuan_produk ?>" data-stok-min-produk="<?= $pr->stok_min ?>" data-harga-jual-produk="<?= $pr->harga_jual_produk ?>" data-harga-beli-produk="<?= $pr->harga_beli_produk ?>" title="ubah data produk"><i class="	fas fa-pencil-alt"></i></button>
+                                    <button style="margin: 2px;" class="btn btn-primary edit-btn bt" data-toggle="modal" data-target="#editModal" data-id-produk="<?= $pr->id_produk ?>" data-nama-produk="<?= $pr->nama_produk ?>" data-kategori-produk="<?= $pr->kategori_produk ?>" data-banyak-produk="<?= $pr->stok_toko ?>" data-satuan-produk="<?= $pr->satuan_produk ?>" data-stok-min-produk="<?= $pr->stok_min ?>" data-harga-jual-produk="<?= $pr->harga_jual_produk ?>" data-harga-beli-produk="<?= $pr->harga_beli_produk ?>" title="ubah data produk"><i class="	fas fa-pencil-alt"></i></button>
 
                                     <form action="<?= base_url('hapus_produk/' . $pr->id_produk); ?>" method="post"><?= csrf_field() ?>
                                         <input type="hidden" name="_method" value="DELETE">
-                                        <button class="btn btn-danger ml-2" type="submit" onclick="return confirm('Yakin ingin menghapus data : <?= $pr->nama_produk ?> ')" title="hapus data produk"><i class="	fas fa-trash"></i></button>
+                                        <button class="btn btn-danger ml-2 bt" type="submit" onclick="return confirm('Yakin ingin menghapus data : <?= $pr->nama_produk ?> ')" title="hapus data produk"><i class="	fas fa-trash"></i></button>
                                     </form>
                                 </div>
                             </td>

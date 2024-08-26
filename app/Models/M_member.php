@@ -14,6 +14,6 @@ class M_member extends Model
     protected $updatedField  = 'updated_at';
 
     protected $allowedFields = [
-        'id_member', 'nama_member', 'alamat_member', 'no_hp', 'toko_id'
+        'id_member', 'nama_member', 'alamat_member', 'no_hp', 'toko_id', 'tipe_member'
     ];
 }
